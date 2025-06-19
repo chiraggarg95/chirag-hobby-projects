@@ -9,6 +9,7 @@ This repo contains hobby projects and utility functions.
 
 Run the script and follow the prompts. Enter file paths without surrounding quotes:
 
+
 ```bash
 python pdf_trim.py
 ```
