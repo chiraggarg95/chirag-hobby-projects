@@ -34,12 +34,18 @@ def trim_pdf(source_path: str, start_page: int, end_page: int, output_dir: str =
     return output_path
 
 
+def _sanitize(path: str) -> str:
+    """Remove surrounding quotes and expand user/vars."""
+    path = path.strip().strip('"').strip("'")
+    return os.path.expanduser(os.path.expandvars(path))
+
+
 def main():
     """Prompt the user for input and trim the PDF."""
-    pdf_path = input("Enter the path to the PDF file: ").strip()
+    pdf_path = _sanitize(input("Enter the path to the PDF file: "))
     start_page = int(input("Enter the start page number (1-indexed): "))
     end_page = int(input("Enter the end page number (inclusive, 1-indexed): "))
-    output_dir = input("Output directory [trimmed_pdfs]: ").strip() or "trimmed_pdfs"
+    output_dir = _sanitize(input("Output directory [trimmed_pdfs]: ") or "trimmed_pdfs")
 
     output = trim_pdf(pdf_path, start_page, end_page, output_dir)
     print(f"Trimmed PDF saved to: {output}")
