@@ -1,5 +1,4 @@
 import os
-import argparse
 from PyPDF2 import PdfReader, PdfWriter
 
 def trim_pdf(source_path: str, start_page: int, end_page: int, output_dir: str = "trimmed_pdfs") -> str:
@@ -36,14 +35,13 @@ def trim_pdf(source_path: str, start_page: int, end_page: int, output_dir: str =
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Trim pages from a PDF file")
-    parser.add_argument("pdf_path", help="Path to the PDF file")
-    parser.add_argument("start_page", type=int, help="Start page number (1-indexed)")
-    parser.add_argument("end_page", type=int, help="End page number (inclusive, 1-indexed)")
-    parser.add_argument("--output-dir", default="trimmed_pdfs", help="Directory to save the trimmed PDF")
-    args = parser.parse_args()
+    """Prompt the user for input and trim the PDF."""
+    pdf_path = input("Enter the path to the PDF file: ").strip()
+    start_page = int(input("Enter the start page number (1-indexed): "))
+    end_page = int(input("Enter the end page number (inclusive, 1-indexed): "))
+    output_dir = input("Output directory [trimmed_pdfs]: ").strip() or "trimmed_pdfs"
 
-    output = trim_pdf(args.pdf_path, args.start_page, args.end_page, args.output_dir)
+    output = trim_pdf(pdf_path, start_page, end_page, output_dir)
     print(f"Trimmed PDF saved to: {output}")
 
 
